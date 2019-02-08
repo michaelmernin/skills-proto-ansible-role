@@ -1,2 +1,3 @@
 #ignore all private key and pub cert
 id_rs*
+*.swp
