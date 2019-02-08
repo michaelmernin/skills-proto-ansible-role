@@ -1,0 +1,25 @@
+- name: Run Neo4j Database
+  become: true
+  docker_container:
+    name: neo4j
+    image: neo4j
+    privileged: yes
+
+    state: started
+    pull: true
+    published_ports:
+      - "222.2.2.2:7687:7687"
+#      - "7474:7474"
+      - "222.2.2.2:7474:7474"
+    purge_networks: yes
+    restart: yes
+    networks:
+      - name: talking
+#        aliases:
+ #         - db
+#      - "7473:7473"
+ #   env: 
+#      - "NEO4J_AUTH:none"
+#    links:
+#      - "Skills_Matrix"
+#    command: "docker run --publish=7473:7473 --publish=7687:7687"

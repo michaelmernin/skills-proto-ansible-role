@@ -1,0 +1,9 @@
+- name: Run Jenkins Service
+  docker_container:
+    name: Jenkins_Service
+    image: jenkins/jenkins
+    state: started
+    pull: true
+    ports:
+      - "8000:8000"
+    privileged: true
