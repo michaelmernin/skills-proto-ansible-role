@@ -1,15 +1,14 @@
-[testServer]
+[dbServer]
 222.2.2.2
 
-[testServer:vars]
+[dbServer:vars]
 ansible_password=vagrant
-#ansible_port=2200
 ansible_become=true
 
-[jarserver]
-221.1.1.2
+[jarServer]
+111.1.1.2
 
-[jarserver:vars]
+[jarServer:vars]
 ansible_password=vagrant
 ansible_become=true
 
@@ -46,7 +45,7 @@ ansible_become=true
 # Ex 3: A collection of database servers in the 'dbservers' group
 
 ## [dbservers]
-## 
+##
 ## db01.intranet.mydomain.net
 ## db02.intranet.mydomain.net
 ## 10.25.1.56
@@ -56,4 +55,3 @@ ansible_become=true
 # leading 0s:
 
 ## db-[99:101]-node.example.com
-

@@ -1,0 +1,9 @@
+# - name: create overlay network
+#   become: true
+#   shell: sudo docker network create --driver overlay --attachable attachable-overlay
+
+- name: Swarm init
+  become: true
+  docker_swarm:
+    state: present
+    advertise_addr: 222.2.2.2:2377

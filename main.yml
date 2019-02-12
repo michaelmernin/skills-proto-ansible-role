@@ -1,23 +1,23 @@
 ---
 - name: Configure server(s)
-  hosts: testServer
+  hosts: dbServer
   remote_user: vagrant
 #  gather_facts: False
   become: True
-  
+
   vars:
     ansible_ssh_private_key_file: "id_rsa"
-  
+
   roles:
-    - apt-update
+#    - apt-update
     - pip
     - docker
-    - overlay_network
+    - master_overlay
     - neo4j
 #    - jenkins
 #    - skills_matrix
 - name: Configure jar server
-  hosts: jarserver
+  hosts: jarServer
   remote_user: vagrant
   become: True
 
@@ -25,8 +25,8 @@
     ansible_ssh_private_key_file: "id_rsa"
 
   roles:
-    - apt-update
+#    - apt-update
     - pip
     - docker
-#    - overlay_network
+    - join_overlay
     - skills_matrix

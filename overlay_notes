@@ -1,0 +1,15 @@
+You need the following ports open to traffic to and from each Docker host participating on an overlay network:
+
+TCP port 2377 for cluster management communications
+TCP and UDP port 7946 for communication among nodes
+UDP port 4789 for overlay network traffic
+
+docker swarm init
+
+docker swarm join
+
+create overlay network for use with swarm services
+'docker network create -d overlay my-overlay'
+
+to make attachable, just add --attachable flag with no arguments needed
+$ docker network create -d overlay --attachable my-attachable-overlay

@@ -1,17 +1,25 @@
+# - name: run via terminal skills Matrix
+#   become: true
+#   shell: sudo docker run --network="attachable-overlay" michaelmernin/skills_matrix_test_perf:open
+
 - name: Run Skills Matrix
   docker_container:
-    name: Skills_Matrix
-    image: michaelmernin/skills_matrix_test_perf
+    privileged: true
+    name: skills_matrix
+    image: michaelmernin/skills_matrix_test_perf:open
     state: started
     pull: true
     ports:
       - "8080:8080"
     purge_networks: yes
     restart: yes
-    networks:
-      name: talking
-      aliases:
-        - api
-    volumes_from: db
-#    links:
-#      - "neo4j"
+    # networks:
+    #   - name: talking
+    #   aliases:
+    #     - api
+    # volumes_from: db
+    # links:
+    #   - "neo4j"
+- name: Connect skills_matrix to overlay network
+  become: true
+  shell: sudo docker network connect attachable-overlay skills_matrix

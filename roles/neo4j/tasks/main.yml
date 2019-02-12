@@ -8,17 +8,17 @@
     state: started
     pull: true
     published_ports:
-      - "222.2.2.2:7687:7687"
+      - "7687:7687"
 #      - "7474:7474"
-      - "222.2.2.2:7474:7474"
+      - "7474:7474"
     purge_networks: yes
     restart: yes
     networks:
-      - name: talking
+      - name: attachable-overlay
 #        aliases:
  #         - db
 #      - "7473:7473"
- #   env: 
+ #   env:
 #      - "NEO4J_AUTH:none"
 #    links:
 #      - "Skills_Matrix"

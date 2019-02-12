@@ -7,18 +7,24 @@
 
 #- name: Leave swarm for a node
 #  docker_swarm:
-#    state: absent 
-    
-- name: Create Overlay Network --Talking--
+#    state: absent
+
+- name: Create Overlay Network --talking--
   become: true
   docker_network:
     name: talking
     driver: overlay
     #attachable: true
     appends: yes
-    tls_hostname: 222.2.2.2
-    connected:
-      - neo4j
-      - skills_matrix
-  
-  
+#    tls_hostname: 222.2.2.2
+#    connected:
+#      - neo4j
+#      - skills_matrix
+
+- name: Create Bridge Network --local--
+  become: true
+  docker_network:
+    name: local
+    driver: bridge
+#    connected:
+#      - neo4j
