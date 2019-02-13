@@ -1,0 +1,30 @@
+#- name: delete attachable-overlay network
+ # become: true
+  #shell: sudo docker network rm attachable-overlay
+
+#- name: create attachable overlay network
+ # become: true
+#  shell: sudo docker network create --driver overlay --attachable attachable-overlay
+
+  #shell: sudo docker network create --opt encrypted --driver overlay --attachable attachable-overlay
+- name: Swarm init
+  become: true
+  docker_swarm:
+    #name: perficient
+    state: present
+    advertise_addr: 222.2.2.2:2377
+#- name: create attachable overlay network
+ # become: true
+  #shell: sudo docker network create --driver overlay --attachable attachable-overlay
+
+
+#    advertise_addr: 222.2.2.2:2377
+
+#- name: Swarm join worker
+  #become: true
+  #docker_swarm:
+  #  state: join
+ #   remote_addrs: [ '222.2.2.2:2377' ]
+#    join_token: SWMTKN-1-4fj6wj0jmrmxnpp9ff16v3iy34pn56mg9vzkgvee0y3abrt08l-at4n39upetmw8460fdfitke9k
+
+    

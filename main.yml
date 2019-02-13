@@ -1,6 +1,6 @@
 ---
 - name: Configure server(s)
-  hosts: testServer
+  hosts: dbserver
   remote_user: vagrant
 #  gather_facts: False
   become: True
@@ -12,8 +12,8 @@
     - apt-update
     - pip
     - docker
-    - overlay_network
-    - neo4j
+#    - master_overlay
+#    - neo4j
 #    - jenkins
 #    - skills_matrix
 - name: Configure jar server
@@ -28,5 +28,5 @@
     - apt-update
     - pip
     - docker
-#    - overlay_network
-    - skills_matrix
+ #   - join_overlay
+    #- skills_matrix

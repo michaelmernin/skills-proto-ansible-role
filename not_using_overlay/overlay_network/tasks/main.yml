@@ -1,0 +1,46 @@
+- name: Instantiate Docker Swarm Node
+  become: true
+#  shell: docker swarm init --advertise-addr 222.2.2.2
+  docker_swarm:
+    state: present
+    advertise_addr: 222.2.2.2
+
+#- name: Leave swarm for a node
+#  docker_swarm:
+#    state: absent 
+    
+- name: Create Overlay Network --Talking--
+  become: true
+  docker_network:
+    name: talking
+    driver: overlay
+    #attachable: true
+    appends: yes
+    tls_hostname: 222.2.2.2
+    connected:
+ #     - neo4j
+      - skills_matrix
+- name: Create Bridge Network --local--
+  become: true
+  docker_network:
+    name: local
+    driver: bridge
+    connected:
+      - neo4j  
+- name: Join neo4j to Local network
+  become: true
+  docker_swarm:
+    state: join
+    name: local
+    advertise_addr: 222.2.2.2
+    remote_addrs: [ '222.2.2.2' ]
+    join_token: SWMTKN-1-4fj6wj0jmrmxnpp9ff16v3iy34pn56mg9vzkgvee0y3abrt08l-at4n39upetmw8460fdfitke9k
+
+- name: Join skills jar to Talking network
+  become: true
+  docker_swarm:
+    state: join
+    advertise_addr: 222.2.2.2
+    remote_addrs: [ '221.1.1.2' ]
+    join_token: SWMTKN-1-4fj6wj0jmrmxnpp9ff16v3iy34pn56mg9vzkgvee0y3abrt08l-at4n39upetmw8460fdfitke9k
+  

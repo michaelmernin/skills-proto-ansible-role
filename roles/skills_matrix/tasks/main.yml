@@ -1,17 +1,27 @@
+#- name: run skills with shell command
+ # become: true
+  #shell: sudo docker run --rm -p 8080:8080 --network="attachable-overlay" michaelmernin/skills_matrix_test_perf:open
+
 - name: Run Skills Matrix
+  become: true
   docker_container:
-    name: Skills_Matrix
-    image: michaelmernin/skills_matrix_test_perf
+    name: skills_matrix
+    image: michaelmernin/skills_matrix_test_perf:open
     state: started
     pull: true
     ports:
-      - "8080:8080"
+      - "111.1.1.2:8080:8080/tcp"
+      - "111.1.1.2:8080:8080/udp"
+
     purge_networks: yes
     restart: yes
-    networks:
-      name: talking
-      aliases:
-        - api
-    volumes_from: db
+   # networks:
+    #  - name: attachable-overlay
+      #aliases:
+       # - api
+#    volumes_from: db
 #    links:
 #      - "neo4j"
+- name: Connect to attachable-overlay network
+  become: true
+  shell: sudo docker network connect attachable-overlay skills_matrix

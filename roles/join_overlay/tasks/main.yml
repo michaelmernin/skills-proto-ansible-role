@@ -1,0 +1,7 @@
+- name: Join Swarm Network
+  become: true
+  docker_swarm:
+    state: join
+    advertise_addr: 111.1.1.2
+    join_token: SWMTKN-1-14lkaddnvzvvprqis1jqjnatg2ojid1z1qocxa5isdsqrw7h59-4uvdaswy9tjll9r7eps2p33mz
+    remote_addrs: [ '222.2.2.2:2377' ]

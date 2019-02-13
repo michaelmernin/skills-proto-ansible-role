@@ -1,0 +1,15 @@
+- name: UFW enable
+  become: true
+  shell: sudo ufw enable
+
+- name: Open 2377/TCP
+  become: true
+  shell: sudo ufw allow 2377/tcp
+
+- name: Open tcp&udp / 7946
+  become: true
+  shell: sudo ufw allow 7946
+
+- name: Open 4789/udp
+  become: true
+  shell: sudo ufw allow 4789/udp

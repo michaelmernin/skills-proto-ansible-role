@@ -8,15 +8,22 @@
     state: started
     pull: true
     published_ports:
-      - "222.2.2.2:7687:7687"
+      - "7687:7687"
+      #- "7687:7687/udp"
 #      - "7474:7474"
-      - "222.2.2.2:7474:7474"
-    purge_networks: yes
-    restart: yes
-    networks:
-      - name: talking
+      - "7474:7474"
+      #- "222.2.2.2:7474:7474/udp"
+#    purge_networks: yes
+ #   restart: yes
+    #networks:
+     # - name: attachable-overlay
 #        aliases:
  #         - db
+
+#- name: Connect to attachable-overlay network
+ # become: true
+  #shell: sudo docker network connect attachable-overlay neo4j
+
 #      - "7473:7473"
  #   env: 
 #      - "NEO4J_AUTH:none"
