@@ -1,19 +1,47 @@
-#- name: delete attachable-overlay network
- # become: true
-  #shell: sudo docker network rm attachable-overlay
-
-#- name: create attachable overlay network
- # become: true
-#  shell: sudo docker network create --driver overlay --attachable attachable-overlay
-
-  #shell: sudo docker network create --opt encrypted --driver overlay --attachable attachable-overlay
 - name: Swarm init
   become: true
   docker_swarm:
     #name: perficient
     state: present
     advertise_addr: 222.2.2.2:2377
-#- name: create attachable overlay network
+
+- name: Join as Master Node
+  become: true
+  docker_swarm:
+    state: join
+    advertise_addr: 222.2.2.2:2377
+    join_token: SWMTKN-1-25v74tsso9494ua0bj1w6inch1oxth89egnskyebks5ww59szu-atnkxvhc0k3u3gvtwq883k6sc
+    remote_addrs: [ '111.1.1.2:2377' ]
+
+
+- name: List Docker networks
+  shell: "docker network ls"
+  changed_when: False
+  register: docker_networks
+
+- name: Create missing Docker networks
+  shell: "docker network create --attachable --driver=overlay {{item}}"
+  when: item not in docker_networks.stdout
+  loop:
+   - skills_overlay
+  
+
+
+#- name: Create Overlay Network
+ # become: true
+  #docker_network:
+   # name: skills_overlay
+    #driver: overlay
+
+
+
+
+
+
+
+
+
+ #- name: create attachable overlay network
  # become: true
   #shell: sudo docker network create --driver overlay --attachable attachable-overlay
 
@@ -26,5 +54,3 @@
   #  state: join
  #   remote_addrs: [ '222.2.2.2:2377' ]
 #    join_token: SWMTKN-1-4fj6wj0jmrmxnpp9ff16v3iy34pn56mg9vzkgvee0y3abrt08l-at4n39upetmw8460fdfitke9k
-
-    

@@ -8,20 +8,29 @@
     name: skills_matrix
     image: michaelmernin/skills_matrix_test_perf:open
     state: started
+    privileged: true
     pull: true
     ports:
-      - "111.1.1.2:8080:8080/tcp"
-      - "111.1.1.2:8080:8080/udp"
+      - "111.1.1.2:8080:8080"
+      #- "111.1.1.2:8080:8080/udp"
 
+#    networks:
+ #     - name: skills_overlay
+  #      links:
+   #       - neo4j
+#    volumes_from:
+ #     - neo4j
+    #links:
+     # - "/neo4j"
     purge_networks: yes
     restart: yes
-   # networks:
-    #  - name: attachable-overlay
+    #networks:
+    #  - name: skills_overlay
       #aliases:
        # - api
 #    volumes_from: db
 #    links:
 #      - "neo4j"
-- name: Connect to attachable-overlay network
+- name: Connect to skills_overlay network
   become: true
-  shell: sudo docker network connect attachable-overlay skills_matrix
+  shell: sudo docker network connect skills_overlay skills_matrix

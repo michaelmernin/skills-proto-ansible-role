@@ -4,25 +4,27 @@
     name: neo4j
     image: neo4j
     privileged: yes
-
+    keep_volumes: yes
     state: started
+    memory: 1000M
+    #recreate: yes
     pull: true
     published_ports:
       - "7687:7687"
-      #- "7687:7687/udp"
-#      - "7474:7474"
+      - "7473:7473"
       - "7474:7474"
-      #- "222.2.2.2:7474:7474/udp"
-#    purge_networks: yes
- #   restart: yes
-    #networks:
-     # - name: attachable-overlay
-#        aliases:
- #         - db
+    volumes:
+      - "/tmp/neo4j/data:/data"
+      - "/tmp/neo4j/logs:/logs"
+    purge_networks: yes
+    restart_policy: always
+    restart: yes
+    working_dir: /tmp/neo4j/
+    
 
-#- name: Connect to attachable-overlay network
- # become: true
-  #shell: sudo docker network connect attachable-overlay neo4j
+- name: Connect to attachable-overlay network
+  become: true
+  shell: sudo docker network connect skills_overlay neo4j
 
 #      - "7473:7473"
  #   env: 
